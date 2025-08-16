@@ -1,17 +1,16 @@
-name: Greetings
+name: Greeting Workflow
 
-on:
-  pull_request:
-    types: [opened]
-  issues:
-    types: [opened]
+on: [push]
 
 jobs:
-  greeting:
+  greet:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/first-interaction@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: "👋 Thanks for opening your first issue here! We appreciate your contribution."
-        pr-message: "🎉 Thanks for submitting your first pull request! We’ll review it soon."
+          - name: Checkout repository
+            uses: actions/checkout@v3
+          
+          - name: Say Hello
+            run: echo "👋 Hello, ${{ github.actor }}! Thanks for pushing your code 🚀"
+          
+          - name: Show Commit Message
+            run: echo "📝 Commit Message: ${{ github.event.head_commit.message }}"
